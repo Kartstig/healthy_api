@@ -1,0 +1,19 @@
+#!/bin/bash
+
+set -ex
+
+if [[ -z $1 ]];
+then
+  ENV=test venv/bin/python -m pytest \
+    --capture=sys \
+    --capture=fd \
+    --cov=src/ \
+    -vv
+else
+  ENV=test venv/bin/python -m pytest \
+    --capture=sys \
+    --capture=fd \
+    --cov=src/ \
+    -vv \
+    -k $1
+fi
