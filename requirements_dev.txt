@@ -34,7 +34,7 @@ mccabe==0.7.0
 mdurl==0.1.2
 mock==5.1.0
 more-itertools==10.0.0
-mypy==1.4.1
+mypy==1.5.1
 mypy-extensions==1.0.0
 packaging==23.1
 pathspec==0.11.1
