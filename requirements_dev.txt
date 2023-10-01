@@ -75,4 +75,5 @@ urllib3==2.0.4
 virtualenv==20.24.2
 webencodings==0.5.1
 Werkzeug==2.3.6
+wheel
 zipp==3.16.2
