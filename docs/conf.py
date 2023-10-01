@@ -1,3 +1,4 @@
+# ruff: noqa: E402
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 #
@@ -30,7 +31,6 @@ project_root = os.path.dirname(cwd)
 # This lets us ensure that the source package is imported, and that its
 # version is used.
 sys.path.insert(0, os.path.abspath(os.path.join("..", "src")))
-
 import healthy_api
 
 # -- General configuration ---------------------------------------------

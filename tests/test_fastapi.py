@@ -8,8 +8,6 @@ test_healthy_api
 Tests for `healthy_api` module.
 """
 
-import json
-import mock
 import os
 import pytest
 from fastapi import FastAPI
@@ -94,7 +92,7 @@ def test_extra_ok(fastapi_app):
         return True
 
     FastapiAdapter = load_adapter()
-    fm = FastapiAdapter(fastapi_app, extra_checks=[fake_function])
+    FastapiAdapter(fastapi_app, extra_checks=[fake_function])
 
     client = TestClient(fastapi_app)
     rv = client.get("/_health")

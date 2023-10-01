@@ -1,5 +1,4 @@
 import mock
-import pytest
 import subprocess
 
 from src.healthy_api.git import git_stats

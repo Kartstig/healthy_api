@@ -1,5 +1,4 @@
 import os
-import pytest
 
 from src.healthy_api import version
 
