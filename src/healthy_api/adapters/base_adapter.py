@@ -1,16 +1,21 @@
+import sys
 from abc import ABC, abstractmethod
 from datetime import datetime
-from typing import Callable, Dict, List, Optional, Union
+from typing import Callable, Dict, List, Optional, TYPE_CHECKING, Union
+
+if TYPE_CHECKING:
+    from .fastapi import FastApiApplication
+    from .flask import FlaskApplication
 
 from ..git import git_stats, GitReturn
 from ..version import read_version_file
 
-try:
-    from typing import Literal
-except ImportError:
-    from typing_extensions import Literal  # Python 3.7 support
+if sys.version_info >= (3, 8):
+    from typing import Literal, TypedDict
+else:
+    from typing_extensions import Literal, TypedDict
 
-SupportedApplication = Union["flask.Flask", "fastapi.App"]
+SupportedApplication = Union["FlaskApplication", "FastApiApplication"]
 FuncList = List[Callable]
 
 ResponseJson = Dict[

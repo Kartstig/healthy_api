@@ -1,11 +1,15 @@
 import re
+import sys
 import subprocess
 from typing import Union
 
-try:
+
+import sys
+
+if sys.version_info >= (3, 8):
     from typing import Literal, TypedDict
-except ImportError:
-    from typing_extensions import Literal, TypedDict  # Python 3.7 support
+else:
+    from typing_extensions import Literal, TypedDict
 
 
 class GitReturn(TypedDict):

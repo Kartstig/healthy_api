@@ -1,19 +1,22 @@
 import flask
+from typing import Any, Dict, Type
 
 from .base_adapter import BaseAdapter
+
+FlaskApplication = Type[flask.Flask]
 
 
 class FlaskAdapter(BaseAdapter):
     def app_name(self) -> str:
         return self.app.name
 
-    def get_logger(self):
+    def get_logger(self) -> Any:
         return self.app.logger
 
-    def json_response(self, data: dict):
+    def json_response(self, data: dict) -> flask.Response:
         return flask.jsonify(data)
 
-    def load_config(self) -> dict:
+    def load_config(self) -> Dict[str, Any]:
         config = {
             "HAPI_ENABLE": bool(
                 int(self.app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))

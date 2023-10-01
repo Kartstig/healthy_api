@@ -1,7 +1,11 @@
 import logging
 import os
+from fastapi import FastAPI
+from typing import Type
 
 from .base_adapter import BaseAdapter
+
+FastApiApplication = Type[FastAPI]
 
 
 class FastapiAdapter(BaseAdapter):
@@ -11,7 +15,7 @@ class FastapiAdapter(BaseAdapter):
     def get_logger(self):
         return logging.getLogger()
 
-    def json_response(self, data: dict):
+    def json_response(self, data: dict) -> dict:
         # FastAPI will handle the json headers
         return data
 
