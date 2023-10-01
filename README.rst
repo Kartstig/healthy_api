@@ -16,9 +16,9 @@ Healthy-API
         :target: https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml
         :alt: GitHub Actions
 
-.. image:: https://readthedocs.org/projects/healthy_api/badge/?version=latest
-        :target: https://healthy_api.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
+.. image:: https://readthedocs.org/projects/healthy-api/badge/?version=latest
+    :target: https://healthy-api.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 .. image:: https://codecov.io/gh/Kartstig/healthy_api/graph/badge.svg?token=mTG6WudJwK
         :target: https://codecov.io/gh/Kartstig/healthy_api
