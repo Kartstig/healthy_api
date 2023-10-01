@@ -8,7 +8,11 @@ Healthy-API
 
 .. _Flask: https://github.com/pallets/flask/
 
-.. image:: https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml/badge.svg?branch=main
+.. image:: https://img.shields.io/pypi/v/Healthy-API.svg
+        :target: https://pypi.python.org/pypi/Healthy-API
+        :alt: PyPI
+
+.. image:: https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml/badge.svg?branch=master
         :target: https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml
         :alt: GitHub Actions
 
