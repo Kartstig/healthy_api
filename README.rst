@@ -11,14 +11,14 @@ Healthy-API
 .. image:: https://img.shields.io/pypi/v/Healthy-API.svg
         :target: https://pypi.python.org/pypi/Healthy-API
 
-.. image:: https://tc.spin-flip.com/app/rest/builds/buildType:id:FlaskMeter_TestPython310/statusIcon.svg
-        :target: https://tc.spin-flip.com/project/FlaskMeter?mode=trends
+.. image:: https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml/badge.svg?branch=main
+        :target https://github.com/Kartstig/healthy_api/actions/workflows/pytest.yml
 
 .. image:: https://readthedocs.org/projects/healthy_api/badge/?version=latest
         :target: https://healthy_api.readthedocs.io/en/latest/?badge=latest
         :alt: Documentation Status
 
-.. image:: https://codecov.io/gh/Kartstig/healthy_api/branch/master/graph/badge.svg?token=NsmixA2iCH
+.. image:: https://codecov.io/gh/Kartstig/healthy_api/graph/badge.svg?token=mTG6WudJwK
         :target: https://codecov.io/gh/Kartstig/healthy_api
 
 .. image:: https://img.shields.io/pypi/dm/Healthy-API
