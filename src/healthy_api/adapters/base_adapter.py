@@ -11,9 +11,9 @@ from ..git import git_stats, GitReturn
 from ..version import read_version_file
 
 if sys.version_info >= (3, 8):
-    from typing import Literal, TypedDict
+    from typing import Literal
 else:
-    from typing_extensions import Literal, TypedDict
+    from typing_extensions import Literal
 
 SupportedApplication = Union["FlaskApplication", "FastApiApplication"]
 FuncList = List[Callable]

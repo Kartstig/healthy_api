@@ -31,9 +31,6 @@ class FastapiAdapter(BaseAdapter):
                 int(os.environ.get("HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION))
             ),
             "HAPI_ENDPOINT": os.environ.get("HAPI_ENDPOINT", self.DEFAULT_ENDPOINT),
-            "HAPI_ENABLE_VERSION": bool(
-                int(os.environ.get("HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION))
-            ),
         }
 
     def load_router(self) -> None:

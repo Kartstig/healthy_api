@@ -34,13 +34,6 @@ class FlaskAdapter(BaseAdapter):
             "HAPI_ENDPOINT": self.app.config.get(
                 "HAPI_ENDPOINT", self.DEFAULT_ENDPOINT
             ),
-            "HAPI_ENABLE_VERSION": bool(
-                int(
-                    self.app.config.get(
-                        "HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION
-                    )
-                )
-            ),
         }
         self.app.config.update(config)
         return config

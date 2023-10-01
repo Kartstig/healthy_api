@@ -4,8 +4,6 @@ import subprocess
 from typing import Union
 
 
-import sys
-
 if sys.version_info >= (3, 8):
     from typing import Literal, TypedDict
 else:
