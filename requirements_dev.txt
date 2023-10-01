@@ -54,6 +54,7 @@ requests-toolbelt==1.0.0
 rfc3986==2.0.0
 rich==13.4.2
 ruff
+setuptools>=63.0
 SecretStorage==3.3.3
 six==1.16.0
 snowballstemmer==2.2.0
