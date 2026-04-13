@@ -1,6 +1,14 @@
 healthy\_api package
 ====================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   healthy_api.adapters
+
 Submodules
 ----------
 

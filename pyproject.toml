@@ -1,7 +1,7 @@
 [project]
 maintainers = [{ name = "Herman Singh", email = "kartstig@gmail.com" }]
 authors = [{ name = "Herman Singh", email = "kartstig@gmail.com" }]
-name = "Healthy-API"
+name = "healthy_api"
 description = "Healthy-API adds a healthcheck endpoint for all web frameworks."
 readme = "README.rst"
 license = { text = "MIT License" }
