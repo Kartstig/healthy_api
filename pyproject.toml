@@ -22,10 +22,16 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
 ]
 requires-python = ">3.7"
 dependencies = []
 dynamic = ["version"]
+
+[project.optional-dependencies]
+flask = ["Flask>=0.12"]
+fastapi = ["fastapi"]
+all = ["Flask>=0.12", "fastapi"]
 
 [project.urls]
 Donate = "https://github.com/sponsors/Kartstig/dashboard"
@@ -35,11 +41,14 @@ Documentation = "https://readthedocs.org/projects/healthy_api"
 
 
 [build-system]
-requires = ["setuptools>=63.0"]
+requires = ["setuptools>=63.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
 version = { attr = "healthy_api.__version__" }
+
+[tool.setuptools.package-data]
+healthy_api = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -51,3 +60,21 @@ source = ["healthy_api", "tests"]
 
 [tool.coverage.paths]
 source = ["src"]
+
+[tool.ruff]
+line-length = 99
+target-version = "py38"
+src = ["src"]
+
+[tool.mypy]
+python_version = "3.8"
+mypy_path = "src"
+explicit_package_bases = true
+
+[[tool.mypy.overrides]]
+module = ["flask", "flask.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["fastapi", "fastapi.*"]
+ignore_missing_imports = true

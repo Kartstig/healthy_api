@@ -1,7 +1,7 @@
 import logging
 import os
 from fastapi import FastAPI
-from typing import Type
+from typing import Type, cast
 
 from .base_adapter import BaseAdapter
 
@@ -10,7 +10,8 @@ FastApiApplication = Type[FastAPI]
 
 class FastapiAdapter(BaseAdapter):
     def app_name(self) -> str:
-        return self.app.title
+        app = cast(FastAPI, self.app)
+        return app.title
 
     def get_logger(self):
         return logging.getLogger()
@@ -21,9 +22,7 @@ class FastapiAdapter(BaseAdapter):
 
     def load_config(self) -> dict:
         return {
-            "HAPI_ENABLE": bool(
-                int(os.environ.get("HAPI_ENABLE", self.DEFAULT_ENABLE))
-            ),
+            "HAPI_ENABLE": bool(int(os.environ.get("HAPI_ENABLE", self.DEFAULT_ENABLE))),
             "HAPI_ENABLE_GIT": bool(
                 int(os.environ.get("HAPI_ENABLE_GIT", self.DEFAULT_ENABLE_GIT))
             ),
@@ -34,6 +33,9 @@ class FastapiAdapter(BaseAdapter):
         }
 
     def load_router(self) -> None:
-        @self.app.get(self.config["HAPI_ENDPOINT"])
+        app = cast(FastAPI, self.app)
+        endpoint = cast(str, self.config["HAPI_ENDPOINT"])
+
+        @app.get(path=endpoint)
         def _health():
             return self.health()

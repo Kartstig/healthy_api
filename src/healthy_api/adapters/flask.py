@@ -1,5 +1,5 @@
 import flask
-from typing import Any, Dict, Type
+from typing import Any, Dict, Type, cast
 
 from .base_adapter import BaseAdapter
 
@@ -8,35 +8,32 @@ FlaskApplication = Type[flask.Flask]
 
 class FlaskAdapter(BaseAdapter):
     def app_name(self) -> str:
-        return self.app.name
+        app = cast(flask.Flask, self.app)
+        return app.name
 
     def get_logger(self) -> Any:
-        return self.app.logger
+        app = cast(flask.Flask, self.app)
+        return app.logger
 
     def json_response(self, data: dict) -> flask.Response:
         return flask.jsonify(data)
 
     def load_config(self) -> Dict[str, Any]:
+        app = cast(flask.Flask, self.app)
         config = {
-            "HAPI_ENABLE": bool(
-                int(self.app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))
-            ),
+            "HAPI_ENABLE": bool(int(app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))),
             "HAPI_ENABLE_GIT": bool(
-                int(self.app.config.get("HAPI_ENABLE_GIT", self.DEFAULT_ENABLE_GIT))
+                int(app.config.get("HAPI_ENABLE_GIT", self.DEFAULT_ENABLE_GIT))
             ),
             "HAPI_ENABLE_VERSION": bool(
-                int(
-                    self.app.config.get(
-                        "HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION
-                    )
-                )
+                int(app.config.get("HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION))
             ),
-            "HAPI_ENDPOINT": self.app.config.get(
-                "HAPI_ENDPOINT", self.DEFAULT_ENDPOINT
-            ),
+            "HAPI_ENDPOINT": app.config.get("HAPI_ENDPOINT", self.DEFAULT_ENDPOINT),
         }
-        self.app.config.update(config)
+        app.config.update(config)
         return config
 
     def load_router(self) -> None:
-        self.app.add_url_rule(self.config["HAPI_ENDPOINT"], view_func=self.health)
+        app = cast(flask.Flask, self.app)
+        endpoint = cast(str, self.config["HAPI_ENDPOINT"])
+        app.add_url_rule(rule=endpoint, view_func=self.health)

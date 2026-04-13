@@ -12,7 +12,13 @@ To install Healthy-API, run this command in your terminal:
 
 .. code-block:: console
 
-    $ pip install healthy_api
+    $ pip install "healthy-api[flask]"
+
+Or, if your app uses FastAPI:
+
+.. code-block:: console
+
+    $ pip install "healthy-api[fastapi]"
 
 This is the preferred method to install Healthy-API, as it will always install the most recent stable release.
 
@@ -44,7 +50,7 @@ Once you have a copy of the source, you can install it with:
 
 .. code-block:: console
 
-    $ python setup.py install
+    $ pip install ".[all]"
 
 
 .. _Github repo: https://github.com/KartStig/healthy_api
