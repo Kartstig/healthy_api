@@ -22,9 +22,7 @@ class FastapiAdapter(BaseAdapter):
 
     def load_config(self) -> dict:
         return {
-            "HAPI_ENABLE": bool(
-                int(os.environ.get("HAPI_ENABLE", self.DEFAULT_ENABLE))
-            ),
+            "HAPI_ENABLE": bool(int(os.environ.get("HAPI_ENABLE", self.DEFAULT_ENABLE))),
             "HAPI_ENABLE_GIT": bool(
                 int(os.environ.get("HAPI_ENABLE_GIT", self.DEFAULT_ENABLE_GIT))
             ),

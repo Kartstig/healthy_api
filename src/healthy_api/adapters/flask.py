@@ -21,22 +21,14 @@ class FlaskAdapter(BaseAdapter):
     def load_config(self) -> Dict[str, Any]:
         app = cast(flask.Flask, self.app)
         config = {
-            "HAPI_ENABLE": bool(
-                int(app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))
-            ),
+            "HAPI_ENABLE": bool(int(app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))),
             "HAPI_ENABLE_GIT": bool(
                 int(app.config.get("HAPI_ENABLE_GIT", self.DEFAULT_ENABLE_GIT))
             ),
             "HAPI_ENABLE_VERSION": bool(
-                int(
-                    app.config.get(
-                        "HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION
-                    )
-                )
+                int(app.config.get("HAPI_ENABLE_VERSION", self.DEFAULT_ENABLE_VERSION))
             ),
-            "HAPI_ENDPOINT": app.config.get(
-                "HAPI_ENDPOINT", self.DEFAULT_ENDPOINT
-            ),
+            "HAPI_ENDPOINT": app.config.get("HAPI_ENDPOINT", self.DEFAULT_ENDPOINT),
         }
         app.config.update(config)
         return config
