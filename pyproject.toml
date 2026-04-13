@@ -28,6 +28,11 @@ requires-python = ">3.7"
 dependencies = []
 dynamic = ["version"]
 
+[project.optional-dependencies]
+flask = ["Flask>=0.12"]
+fastapi = ["fastapi"]
+all = ["Flask>=0.12", "fastapi"]
+
 [project.urls]
 Donate = "https://github.com/sponsors/Kartstig/dashboard"
 Documentation = "https://readthedocs.org/projects/healthy_api"
@@ -68,4 +73,8 @@ explicit_package_bases = true
 
 [[tool.mypy.overrides]]
 module = ["flask", "flask.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["fastapi", "fastapi.*"]
 ignore_missing_imports = true

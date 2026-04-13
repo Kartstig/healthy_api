@@ -41,7 +41,13 @@ Install and update using `pip`\:
 
 .. code-block:: text
 
-        pip install -U healthy_api
+        pip install -U "healthy-api[flask]"
+
+or
+
+.. code-block:: text
+
+        pip install -U "healthy-api[fastapi]"
 
 FastAPI Configuration
 ---------------------
