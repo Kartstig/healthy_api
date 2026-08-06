@@ -1,8 +1,7 @@
 __version__ = "0.10.0"
 
 import os
-
-from typing import Type, TYPE_CHECKING, Union
+from typing import TYPE_CHECKING, Type, Union
 
 if TYPE_CHECKING:
     from .adapters.fastapi import FastapiAdapter

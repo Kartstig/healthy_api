@@ -1,26 +1,22 @@
-import sys
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
-from datetime import datetime
-from typing import Callable, Dict, List, Optional, TYPE_CHECKING, Union
+from datetime import datetime, timezone
+from typing import TYPE_CHECKING, Callable, Dict, List, Literal, Union
 
 if TYPE_CHECKING:
     from .fastapi import FastApiApplication
     from .flask import FlaskApplication
 
-from ..git import git_stats, GitReturn
+from ..git import GitReturn, git_stats
 from ..version import read_version_file
-
-if sys.version_info >= (3, 8):
-    from typing import Literal
-else:
-    from typing_extensions import Literal
 
 SupportedApplication = Union["FlaskApplication", "FastApiApplication"]
 FuncList = List[Callable]
 
 ResponseJson = Dict[
-    Union[Literal["uptime"], Literal["app"], Literal["status"], Literal["git"], str],
-    Union[str, Literal["OK"], Literal["DOWN"], GitReturn],
+    Union[Literal["uptime", "app", "status", "git"], str],
+    Union[Literal["OK", "DOWN"], str, GitReturn],
 ]
 
 
@@ -32,8 +28,8 @@ class BaseAdapter(ABC):
 
     def __init__(
         self,
-        app: Optional[SupportedApplication] = None,
-        extra_checks: Optional[FuncList] = None,
+        app: SupportedApplication | None = None,
+        extra_checks: FuncList | None = None,
     ) -> None:
         if app is not None:
             check_fns = extra_checks if extra_checks is not None else []
@@ -41,15 +37,15 @@ class BaseAdapter(ABC):
 
     def init_app(
         self,
-        app: Optional[SupportedApplication],
-        extra_checks: Optional[FuncList] = None,
+        app: SupportedApplication | None,
+        extra_checks: FuncList | None = None,
     ) -> None:
         if app is None:
             raise ValueError("None is not a valid application")
 
         self.app = app
         self.extra_checks = extra_checks if extra_checks is not None else []
-        self.start_time = datetime.now()
+        self.start_time = datetime.now(timezone.utc)
         self.config = self.load_config()
         self.logger = self.get_logger()
 
@@ -58,19 +54,19 @@ class BaseAdapter(ABC):
 
     def health(self):
         data: ResponseJson = {
-            "uptime": str(datetime.now() - self.start_time),
+            "uptime": str(datetime.now(timezone.utc) - self.start_time),
             "app": self.app_name(),
         }
 
-        raw_results: List[bool] = []
+        raw_results: list[bool] = []
         if self.extra_checks:
             results = {}
             for func in self.extra_checks:
                 try:
                     res: bool = func()
                     raw_results.append(res)
-                except Exception as e:
-                    self.logger.error(f"Error in healthcheck: {str(e)}")
+                except Exception as e:  # noqa: BLE001 - user checks may raise anything
+                    self.logger.error(f"Error in healthcheck: {e!s}")
                     res = False
 
                 results[func.__doc__] = "OK" if res else "DOWN"

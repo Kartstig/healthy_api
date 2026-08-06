@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """
 test_healthy_api
 ----------------------------------
@@ -10,8 +7,8 @@ Tests for `healthy_api` module.
 
 import json
 import os
-import pytest
 
+import pytest
 from src.healthy_api import load_adapter
 
 
@@ -50,9 +47,9 @@ def test_response(flask_app):
 
     def mock_subprocess(*args, **kwargs):
         lines = [
-            "commit:\t{}".format(commit),
-            "Author:\t{}".format(author),
-            "Date:\t{}".format(date),
+            f"commit:\t{commit}",
+            f"Author:\t{author}",
+            f"Date:\t{date}",
         ]
         return "\n".join(lines).encode("utf-8")
 
@@ -69,6 +66,14 @@ def test_response(flask_app):
     assert data["git"]["author"] == author
     assert data["git"]["commit"] == commit
     assert data["git"]["date"] == date
+
+
+def test_options(flask_app):
+    FlaskAdapter = load_adapter()
+    fm = FlaskAdapter(flask_app)
+    client = fm.app.test_client()
+    rv = client.options("/_health")
+    assert rv.status_code == 200
 
 
 def test_disable(flask_app):
@@ -102,7 +107,7 @@ def test_extra_ok(flask_app):
 def test_extra_exception(flask_app):
     def fake_function():
         """FailFunc"""
-        raise Exception("This function raised an exception")
+        raise RuntimeError("This function raised an exception")
 
     FlaskAdapter = load_adapter()
     fm = FlaskAdapter()

@@ -52,7 +52,11 @@ healthy_api = ["py.typed"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-filterwarnings = ["error"]
+filterwarnings = [
+    "error",
+    # Flask <3.1 still calls pkgutil.get_loader when resolving app root.
+    "ignore:'pkgutil.get_loader' is deprecated:DeprecationWarning",
+]
 
 [tool.coverage.run]
 branch = true
@@ -67,7 +71,7 @@ target-version = "py38"
 src = ["src"]
 
 [tool.mypy]
-python_version = "3.8"
+python_version = "3.12"
 mypy_path = "src"
 explicit_package_bases = true
 

@@ -1,5 +1,8 @@
+from __future__ import annotations
+
+from typing import Any, Type, cast
+
 import flask
-from typing import Any, Dict, Type, cast
 
 from .base_adapter import BaseAdapter
 
@@ -18,7 +21,7 @@ class FlaskAdapter(BaseAdapter):
     def json_response(self, data: dict) -> flask.Response:
         return flask.jsonify(data)
 
-    def load_config(self) -> Dict[str, Any]:
+    def load_config(self) -> dict[str, Any]:
         app = cast(flask.Flask, self.app)
         config = {
             "HAPI_ENABLE": bool(int(app.config.get("HAPI_ENABLE", self.DEFAULT_ENABLE))),
@@ -36,4 +39,16 @@ class FlaskAdapter(BaseAdapter):
     def load_router(self) -> None:
         app = cast(flask.Flask, self.app)
         endpoint = cast(str, self.config["HAPI_ENDPOINT"])
-        app.add_url_rule(rule=endpoint, view_func=self.health)
+
+        def _health_options():
+            return flask.Response(status=200)
+
+        app.add_url_rule(
+            rule=endpoint, endpoint="hapi_health", view_func=self.health, methods=["GET"]
+        )
+        app.add_url_rule(
+            rule=endpoint,
+            endpoint="hapi_health_options",
+            view_func=_health_options,
+            methods=["OPTIONS"],
+        )
