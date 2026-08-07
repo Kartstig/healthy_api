@@ -1,19 +1,14 @@
+from __future__ import annotations
+
 import re
-import sys
 import subprocess
-from typing import Union
-
-
-if sys.version_info >= (3, 8):
-    from typing import Literal, TypedDict
-else:
-    from typing_extensions import Literal, TypedDict
+from typing import Literal, TypedDict
 
 
 class GitReturn(TypedDict):
-    commit: Union[str, Literal["Unknown"]]
-    author: Union[str, Literal["Unknown"]]
-    date: Union[str, Literal["Unknown"]]
+    commit: str | Literal["Unknown"]
+    author: str | Literal["Unknown"]
+    date: str | Literal["Unknown"]
 
 
 GIT_CMD = "git log | head -4"

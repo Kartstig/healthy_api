@@ -1,7 +1,8 @@
 import logging
 import os
-from fastapi import FastAPI
 from typing import Type, cast
+
+from fastapi import FastAPI, Response
 
 from .base_adapter import BaseAdapter
 
@@ -39,3 +40,7 @@ class FastapiAdapter(BaseAdapter):
         @app.get(path=endpoint)
         def _health():
             return self.health()
+
+        @app.options(path=endpoint)
+        def _health_options():
+            return Response(status_code=200)

@@ -1,4 +1,4 @@
-.PHONY: clean clean-build clean-pyc clean-test coverage dist docs help install lint lint/flake8 lint/black lint/ruff lint/mypy format/ruff
+.PHONY: clean clean-build clean-pyc clean-test check coverage dist docs format format/ruff help install lint lint/flake8 lint/black lint/ruff lint/ruff-format lint/mypy test test-all
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
@@ -47,22 +47,27 @@ clean-test: ## remove test and coverage artifacts
 	rm -fr htmlcov/
 	rm -fr .pytest_cache
 
-lint/flake8: ## check style with flake8
+lint/flake8: ## check style with flake8 (legacy)
 	flake8 src/healthy_api tests
-lint/black: ## check style with black
+lint/black: ## check style with black (legacy)
 	black --check src/healthy_api tests
 lint/ruff: ## lint with ruff
 	python -m ruff check src/healthy_api tests
+lint/ruff-format: ## check formatting with ruff
+	python -m ruff format --check src/healthy_api tests
 lint/mypy: ## type-check with mypy
 	python -m mypy src/healthy_api
 
-format/ruff: ## format with ruff
-	python -m ruff format src/healthy_api tests
+format: ## format with ruff (via script/format)
+	./script/format
+format/ruff: format ## alias for format
 
-lint: lint/flake8 lint/black ## check style
+lint: lint/ruff-format lint/ruff lint/mypy ## check format, lint, and types (CI gates)
 
 test: ## run tests quickly with the default Python
 	python -m pytest
+
+check: lint test ## run lint and tests
 
 test-all: ## run tests on every Python version with tox
 	python -m tox

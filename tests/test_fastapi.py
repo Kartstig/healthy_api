@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 """
 test_healthy_api
 ----------------------------------
@@ -9,10 +6,10 @@ Tests for `healthy_api` module.
 """
 
 import os
+
 import pytest
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
-
 from src.healthy_api import load_adapter
 from src.healthy_api.adapters.fastapi import FastapiAdapter as FA_REF
 
@@ -50,9 +47,9 @@ def test_response(fastapi_app):
 
     def mock_subprocess(*args, **kwargs):
         lines = [
-            "commit:\t{}".format(commit),
-            "Author:\t{}".format(author),
-            "Date:\t{}".format(date),
+            f"commit:\t{commit}",
+            f"Author:\t{author}",
+            f"Date:\t{date}",
         ]
         return "\n".join(lines).encode("utf-8")
 
@@ -70,6 +67,14 @@ def test_response(fastapi_app):
     assert data["git"]["author"] == author
     assert data["git"]["commit"] == commit
     assert data["git"]["date"] == date
+
+
+def test_options(fastapi_app):
+    FastapiAdapter = load_adapter()
+    FastapiAdapter(fastapi_app)
+    client = TestClient(fastapi_app)
+    rv = client.options("/_health")
+    assert rv.status_code == 200
 
 
 def test_disable(fastapi_app):
@@ -105,7 +110,7 @@ def test_extra_ok(fastapi_app):
 def test_extra_exception(fastapi_app):
     def fake_function():
         """FailFunc"""
-        raise Exception("This function raised an exception")
+        raise RuntimeError("This function raised an exception")
 
     FastapiAdapter = load_adapter()
     fm = FastapiAdapter()
