@@ -39,7 +39,8 @@ mypy==1.5.1
 mypy-extensions==1.0.0
 packaging==23.1
 pathspec==0.11.1
-pkginfo==1.9.6
+pkginfo>=1.12
+build
 platformdirs==3.9.1
 pluggy==1.2.0
 pycodestyle==2.10.0
@@ -70,7 +71,7 @@ sphinxcontrib-qthelp==1.0.3
 sphinxcontrib-serializinghtml==1.1.5
 tomli==2.0.1
 tox==4.6.4
-twine==4.0.2
+twine>=5.1
 typing_extensions>=4.12
 urllib3==2.0.4
 virtualenv==20.24.2
