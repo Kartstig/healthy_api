@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+python -m ruff format src/healthy_api tests
+python -m ruff check --fix src/healthy_api tests
