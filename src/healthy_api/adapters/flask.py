@@ -1,12 +1,12 @@
 from __future__ import annotations
 
-from typing import Any, Type, cast
+from typing import Any, cast
 
 import flask
 
 from .base_adapter import BaseAdapter
 
-FlaskApplication = Type[flask.Flask]
+FlaskApplication = flask.Flask
 
 
 class FlaskAdapter(BaseAdapter):

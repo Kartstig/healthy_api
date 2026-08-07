@@ -1,12 +1,12 @@
 import logging
 import os
-from typing import Type, cast
+from typing import cast
 
 from fastapi import FastAPI, Response
 
 from .base_adapter import BaseAdapter
 
-FastApiApplication = Type[FastAPI]
+FastApiApplication = FastAPI
 
 
 class FastapiAdapter(BaseAdapter):

@@ -54,8 +54,9 @@ healthy_api = ["py.typed"]
 testpaths = ["tests"]
 filterwarnings = [
     "error",
-    # Flask <3.1 still calls pkgutil.get_loader when resolving app root.
+    # Flask <3.1 still calls pkgutil.get_loader → find_loader when resolving app root.
     "ignore:'pkgutil.get_loader' is deprecated:DeprecationWarning",
+    "ignore:'pkgutil.find_loader' is deprecated:DeprecationWarning",
 ]
 
 [tool.coverage.run]
